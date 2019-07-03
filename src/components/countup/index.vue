@@ -5,10 +5,17 @@ export default {
   name: 'countup',
   mounted () {
     this.$nextTick(() => {
-      this._countup = new Countup(this.$el, this.startVal, this.endVal, this.decimals, this.duration, this.options)
-      if (this.start) {
-        this._countup.start()
-      }
+      // this._countup = new Countup(this.$el, this.startVal, this.endVal, this.decimals, this.duration, this.options)
+      // if (this.start) {
+      //   this._countup.start()
+      // }
+      //**修改内容
+      setTimeout(()=>{
+        this._countup = new Countup(this.$el, this.startVal, this.endVal, this.decimals, this.duration, this.options)
+        if (this.start) {
+          this._countup.start()
+        }
+      },this.delay)
     })
   },
   props: {
@@ -55,7 +62,13 @@ export default {
       }
     },
     endVal (val) {
-      this._countup.update(val)
+      //**修改内容
+      //this._countup.update(val)
+      this.$nextTick(() => {    //修改之后
+        setTimeout(() => {
+          this._countup.update(val)
+        }, this.delay)
+      })
     }
   }
 }
